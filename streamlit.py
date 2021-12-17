@@ -125,11 +125,21 @@ SB_Inpatient_DRGs_pivot = sb_merge_inpt2015.pivot_table(index=['provider_id','dr
 SB_Inpatient_DRGs_pivot_desc = SB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
 st.dataframe(SB_Inpatient_DRGs_pivot_desc)
 
+st.subheader('Outside StonyBrook Inpatient DRGs Pivot Table')
+OutsideSB_Inpatient_DRGs_pivot = outsidesb_merge_inpt2015.pivot_table(index=['provider_id','drg_definition'],values=['average_total_payments'])
+OutsideSB_Inpatient_DRGs_pivot_desc = OutsideSB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
+st.dataframe(OutsideSB_Inpatient_DRGs_pivot_desc)
 
+###ALL OF NY DATA
+st.subheader('All NY data EXCEPT StonyBrook (Outpatient)')
+NY_nonsb_merge_outpt2015 = outsidesb_merge_outpt2015[outsidesb_merge_outpt2015['provider_state'] == 'NY']
+NY_nonsb_merge_outpt2015_preview = NY_nonsb_merge_outpt2015.sample(10)
+st.dataframe(NY_nonsb_merge_outpt2015_preview)
 
-
-
-
+st.subheader('All NY data EXCEPT StonyBrook (Inpatient)')
+NY_nonsb_merge_inpt2015 = outsidesb_merge_inpt2015[outsidesb_merge_inpt2015['provider_state'] == 'NY']
+NY_nonsb_merge_inpt2015_preview = NY_nonsb_merge_inpt2015.sample(10)
+st.dataframe(NY_nonsb_merge_inpt2015_preview)
 
 
 
