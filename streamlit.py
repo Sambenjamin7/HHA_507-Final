@@ -59,7 +59,7 @@ st.dataframe(inpatient2015)
 st.header('Outpatient Dataset')
 st.dataframe(outpatient2015)
 
-st.subheader('Hospital Type ')
+st.subheader('Hospital Types ')
 bar1 = df_hospital['hospital_type'].value_counts().reset_index()
 st.dataframe(bar1)
 st.markdown('The different hospital type breakdowns: Acute Care, Critical Access Care, AC Department of defense, Childrens, and Psychiatric.') 
@@ -67,6 +67,59 @@ st.markdown('The different hospital type breakdowns: Acute Care, Critical Access
 st.subheader('Pie Chart of the different Hospital Type')
 fig = px.pie(bar1, values='hospital_type', names='index')
 st.plotly_chart(fig)
+
+
+st.header('Hospital types by NY state')
+hospitalsny = df_hospital[df_hospital['state'] == 'NY']
+st.subheader('Hospital Type NY')
+bar1 = hospitalsny['hospital_type'].value_counts().reset_index()
+st.dataframe(bar1)
+
+##Merging the data 
+hospitalinfo['provider_id'] = hospitalinfo['provider_id'].astype(str)
+outpatient2015['provider_id'] = outpatient2015['provider_id'].astype(str)
+inpatient2015['provider_id'] = inpatient2015['provider_id'].astype(str)
+
+st.header('Hospital and Inpatient Merged Data')
+df_merge_inpt2015 = inpatient2015.merge(hospitalinfo, how = 'left', left_on = 'provider_id', right_on = 'provider_id')
+df_merge_inpt2015_preview = df_merge_inpt2015.sample(20)
+st.dataframe(df_merge_inpt2015_preview)
+
+st.header('Hospital and Outpatient Merged Data')
+df_merge_outpt2015 = outpatient2015.merge(hospitalinfo, how = 'left', left_on = 'provider_id', right_on = 'provider_id')
+df_merge_outpt2015_preview = df_merge_outpt2015.sample(20)
+st.dataframe(df_merge_outpt2015_preview)
+
+
+
+#Question 1
+st.subheader('Question 1')
+st.write('Question1: How does Stony Brook data compare to the inpatient hospitals for the most expensive DRGs')
+st.markdown('The pivot tables shows: at StonyBrook 003 - ECMO OR TRACH W MV >96 HRS OR PDX EXC FACE, MOUTH & NECK W MAJ O.R.	with an average total payment of $216636.88 is the most expensive inpatient DRG. 001 - HEART TRANSPLANT OR IMPLANT OF HEART ASSIST SYSTEM W MCC with an average total payment of $449486.11 is the most expensive DRG of the outside facilities StonyBrook inpatient facilities ')
+
+st.subheader('StonyBrook Inpatient DRGs Pivot Table')
+SB_Inpatient_DRGs_pivot = sb_merge_inpt.pivot_table(index=['provider_id','drg_definition'],values=['average_total_payments'])
+SB_Inpatient_DRGs_pivot_desc = SB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
+st.dataframe(SB_Inpatient_DRGs_pivot_desc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
