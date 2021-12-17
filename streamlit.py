@@ -90,7 +90,30 @@ df_merge_outpt2015 = outpatient2015.merge(hospitalinfo, how = 'left', left_on = 
 df_merge_outpt2015_preview = df_merge_outpt2015.sample(20)
 st.dataframe(df_merge_outpt2015_preview)
 
+st.subheader('Stonybrook Data Hospital and the Outpatient')
+# Stony brook data for Hospital and the outpatient merged dataset
+sb_merge_outpt2015 = df_merge_outpt2015[df_merge_outpt2015['provider_id'] == '330393']
+sb_merge_outpt2015_preview = sb_merge_outpt2015.sample(10)
+st.dataframe(sb_merge_outpt2015_preview)
 
+st.subheader('Stonybrook Data Hospital and the Inpatient')
+# Stony brook data for Hospital and the Inpatient merged dataset
+sb_merge_inpt2015 = df_merge_inpt2015[df_merge_inpt2015['provider_id'] == '330393']
+sb_merge_inpt2015_preview = sb_merge_inpt2015.sample(20)
+st.dataframe(sb_merge_inpt2015_preview)
+
+st.subheader('Non Stonybrook Data Hospital and the Outpatient')
+# Outside Stony Brook Data for Hospital and the Outpatient merged dataset
+outsidesb_merge_outpt2015 = df_merge_outpt2015[df_merge_outpt2015['provider_id'] != '330393']
+outsidesb_merge_outpt2015_preview = outsidesb_merge_outpt2015.sample(10)
+st.dataframe(outsidesb_merge_outpt2015_preview)
+
+
+st.subheader('Non Stonybrook Data Hospital/Inpatient')
+# Outside Stony Brook Data for Hospital and the Inpatient merged dataset
+outsidesb_merge_inpt2015 = df_merge_inpt2015[df_merge_inpt2015['provider_id'] != '330393']
+outsidesb_merge_inpt2015_preview = outsidesb_merge_inpt2015.sample(10)
+st.dataframe(outsidesb_merge_inpt2015_preview)
 
 #Question 1
 st.subheader('Question 1')
@@ -98,7 +121,7 @@ st.write('Question1: How does Stony Brook data compare to the inpatient hospital
 st.markdown('The pivot tables shows: at StonyBrook 003 - ECMO OR TRACH W MV >96 HRS OR PDX EXC FACE, MOUTH & NECK W MAJ O.R.	with an average total payment of $216636.88 is the most expensive inpatient DRG. 001 - HEART TRANSPLANT OR IMPLANT OF HEART ASSIST SYSTEM W MCC with an average total payment of $449486.11 is the most expensive DRG of the outside facilities StonyBrook inpatient facilities ')
 
 st.subheader('StonyBrook Inpatient DRGs Pivot Table')
-SB_Inpatient_DRGs_pivot = sb_merge_inpt.pivot_table(index=['provider_id','drg_definition'],values=['average_total_payments'])
+SB_Inpatient_DRGs_pivot = sb_merge_inpt2015.pivot_table(index=['provider_id','drg_definition'],values=['average_total_payments'])
 SB_Inpatient_DRGs_pivot_desc = SB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
 st.dataframe(SB_Inpatient_DRGs_pivot_desc)
 
