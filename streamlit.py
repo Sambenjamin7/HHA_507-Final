@@ -125,7 +125,7 @@ SB_Inpatient_DRGs_pivot = sb_merge_inpt2015.pivot_table(index=['provider_id','dr
 SB_Inpatient_DRGs_pivot_desc = SB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
 st.dataframe(SB_Inpatient_DRGs_pivot_desc)
 
-st.subheader('Outside StonyBrook Inpatient DRGs Pivot Table')
+st.subheader('Outside of the StonyBrook Inpatient DRGs Pivot Table')
 OutsideSB_Inpatient_DRGs_pivot = outsidesb_merge_inpt2015.pivot_table(index=['provider_id','drg_definition'],values=['average_total_payments'])
 OutsideSB_Inpatient_DRGs_pivot_desc = OutsideSB_Inpatient_DRGs_pivot.sort_values(['average_total_payments'], ascending=False)
 st.dataframe(OutsideSB_Inpatient_DRGs_pivot_desc)
@@ -141,10 +141,22 @@ NY_nonsb_merge_inpt2015 = outsidesb_merge_inpt2015[outsidesb_merge_inpt2015['pro
 NY_nonsb_merge_inpt2015_preview = NY_nonsb_merge_inpt2015.sample(10)
 st.dataframe(NY_nonsb_merge_inpt2015_preview)
 
+#Question 2 
+st.subheader('Question 2')
+st.write('Question2: How does Stonybrook data compare to the other outpatient hospitals for the most expensive APCs?')
+st.markdown('The two pivot tables that arehere, we can see that the most expensive outpatient APC at Stonybrook is 0074 - Level IV Endoscopy Upper Airway. Most expensive outpatient APC in outside Stonybrook facilities is also 0074 - Level IV Endoscopy Upper Airway. The average total payment for this APC at Stonybrook is $2307.21 and the outside of Stonybrook the average total payment is $2783.802785')
 
 
+# Stony Brook -> Most expensive outpatient APCs
+st.subheader('Stony Brook Outpatient APCs: Pivot Table')
+SB_Outpatient_APCs_pivot = sb_merge_outpt2015.pivot_table(index=['provider_id','apc'],values=['average_total_payments'])
+SB_Outpatient_APCs_pivot_desc = SB_Outpatient_APCs_pivot.sort_values(['average_total_payments'], ascending=False)
+st.dataframe(SB_Outpatient_APCs_pivot_desc)
 
-
+st.subheader('Outside of the Stony Brook Outpatient APCs Pivot Table')
+OutsideSB_Outpatient_APCs_pivot = outsidesb_merge_outpt2015.pivot_table(index=['provider_id','apc'],values=['average_total_payments'])
+OutsideSB_Outpatient_APCs_pivot_desc = OutsideSB_Outpatient_APCs_pivot.sort_values(['average_total_payments'], ascending=False)
+st.dataframe(OutsideSB_Outpatient_APCs_pivot_desc)
 
 
 
